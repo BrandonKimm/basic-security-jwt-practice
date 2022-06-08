@@ -30,13 +30,10 @@ public class UserController {
     @PostMapping("/signup")
     public ResponseEntity<UserDto> signup(
             @Valid @RequestBody UserDto userDto
-    ) {
-        try {
-            return ResponseEntity.ok(userService.signup(userDto));
-        } catch (DuplicateMemberException e) {
-            e.printStackTrace();
-        }
+    ) throws DuplicateMemberException {
+        return ResponseEntity.ok(userService.signup(userDto));
     }
+
 
     @GetMapping("/user")
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
